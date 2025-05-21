@@ -1,0 +1,8 @@
+langchain
+langgraph
+fastapi
+uvicorn
+pymongo
+python-dotenv
+langchain_openai
+streamlit
