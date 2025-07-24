@@ -48,7 +48,7 @@ The application uses a **LangGraph-based workflow** with the following nodes:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/<your_username>/Smart-Medical-Assistant.git
    cd smart-medical-assistant
    ```
 
