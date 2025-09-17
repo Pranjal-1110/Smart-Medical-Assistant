@@ -11,12 +11,12 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "{input}")
 ])
 
-def suggest_doctor(state: State) -> State:
+async def suggest_doctor(state: State) -> State:
     recommended_action = state["recommended_action"]
     
     chain = prompt | llm
-    response = chain.invoke({"input": recommended_action})
-    
+    response = await chain.ainvoke({"input": recommended_action})
+
     doctor_specialization = str(response.content).strip()
 
     return {**state, "recommended_doctor": doctor_specialization}

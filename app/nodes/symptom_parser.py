@@ -12,8 +12,8 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "{input}")
 ])
 
-def parse_symptoms(state: State) -> State:
+async def parse_symptoms(state: State) -> State:
     symptoms = state["symptoms"]
     chain = prompt | llm
-    parsed = chain.invoke({"input": symptoms})
+    parsed = await chain.ainvoke({"input": symptoms})
     return {**state, "parsed_symptoms": str(parsed.content).strip()}

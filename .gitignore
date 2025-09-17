@@ -1,7 +1,8 @@
 .env
-ENV/
+.venv/
 app/__pycache__
 app/core/__pycache__
 app/nodes/__pycache__
 app/routes/__pycache__
 app/services/__pycache__
+app/auth/__pycache__

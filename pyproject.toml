@@ -1,0 +1,26 @@
+[project]
+name = "smart-medical-assistant"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "authlib>=1.6.3",
+    "fastapi>=0.116.1",
+    "itsdangerous>=2.2.0",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.29",
+    "langchain-groq>=0.3.7",
+    "langchain-openai>=0.3.32",
+    "langgraph>=0.6.6",
+    "motor>=3.7.1",
+    "passlib[bycrypt]>=1.7.4",
+    "pydantic[email]>=2.11.7",
+    "pymongo>=4.14.1",
+    "python-dotenv>=1.1.1",
+    "python-jose[cryptography]>=3.5.0",
+    "python-multipart>=0.0.20",
+    "redis[hiredis]>=6.4.0",
+    "streamlit>=1.49.1",
+    "uvicorn>=0.35.0",
+]

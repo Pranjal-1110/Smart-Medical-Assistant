@@ -11,9 +11,9 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "Symptoms: {symptoms}\nHistory: {history}")
 ])
 
-def predict_condition(state: State) -> State:
+async def predict_condition(state: State) -> State:
     chain = prompt | llm
-    response = chain.invoke({
+    response = await chain.ainvoke({
         "symptoms": state["parsed_symptoms"],
         "history": state.get("history", {})
     })

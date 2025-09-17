@@ -75,7 +75,7 @@ The application uses a **LangGraph-based workflow** with the following nodes:
 ### Starting the Backend Server
 
 ```bash
-python app/main.py
+uvicorn app.main:app --reload
 ```
 
 The FastAPI server will start on `http://localhost:8000`

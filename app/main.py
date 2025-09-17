@@ -1,9 +1,18 @@
 from fastapi import FastAPI
-from app.routes.analyze import router as analyze_router
-import uvicorn
+from starlette.middleware.sessions import SessionMiddleware
+from app.routes import auth, analyze
+import os
 
-app = FastAPI()
-app.include_router(analyze_router, prefix="/api")
+app = FastAPI(title="Smart Medical Assistant")
 
-if __name__ == "__main__":
-    uvicorn.run("app.main:app" , host="127.0.0.1" , port=8000, reload = True)
+@app.get("/")
+def read_root():
+    return {"message" : "Welcome to Smart Medical Assistant"}
+
+app.add_middleware(
+    SessionMiddleware,
+    secret_key = os.getenv("SECRET_KEY" , "supersecret")
+)
+
+app.include_router(auth.router)
+app.include_router(analyze.router)

@@ -10,7 +10,7 @@ load_dotenv()
 llm = ChatOpenAI(model='gpt-4o-mini')
 
 
-def search_doctors_nearby(state: State) -> State:
+async def search_doctors_nearby(state: State) -> State:
     specialization = state["recommended_doctor"]
     location = state.get("location", "near me")
 
@@ -18,10 +18,10 @@ def search_doctors_nearby(state: State) -> State:
 
     tavily_tool = TavilySearchResults(k=5)
 
-    search_results = tavily_tool.invoke({"query": query})
+    search_results = tavily_tool.ainvoke({"query": query})
 
     # top_doctors = [res['title'] for res in search_results['results'][:5]] if 'results' in search_results else []
 
-    top_doctors = search_results
+    top_doctors = await search_results
 
     return {**state, "nearby_doctors": top_doctors}

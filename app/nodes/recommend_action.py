@@ -14,8 +14,8 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", " Predicted conditions are\n{predicted_condition} \n Previous history is - \n{history}")
 ])
 
-def recommend_action(state: State) -> State:
+async def recommend_action(state: State) -> State:
     chain = prompt | llm2
     predicted_condition = state["predicted_condition"].lower()
-    response = chain.invoke({"predicted_condition": predicted_condition , 'history': state["history"]})
+    response = await chain.ainvoke({"predicted_condition": predicted_condition , 'history': state["history"]})
     return {**state, "recommended_action": str(response.content)}
