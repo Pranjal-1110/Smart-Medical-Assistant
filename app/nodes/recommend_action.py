@@ -16,6 +16,6 @@ prompt = ChatPromptTemplate.from_messages([
 
 async def recommend_action(state: State) -> State:
     chain = prompt | llm2
-    predicted_condition = state["predicted_condition"].lower()
-    response = await chain.ainvoke({"predicted_condition": predicted_condition , 'history': state["history"]})
-    return {**state, "recommended_action": str(response.content)}
+    predicted_condition = state.secondary_diagnosis
+    response = await chain.ainvoke({"predicted_condition": predicted_condition , 'history': state.history})
+    return state.model_copy(update={"recommended_action": str(response.content).strip()})

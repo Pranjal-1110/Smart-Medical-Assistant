@@ -15,9 +15,10 @@ async def analyze_symptoms(request: Request):
         patient_id=patient_id,
         symptoms=symptoms,
         location=location,
-        parsed_symptoms="",
+        parsed_symptoms=[],
+        primary_diagnosis="",
+        secondary_diagnosis="",
         history={},
-        predicted_condition="",
         recommended_action="",
         recommended_doctor="",
         nearby_doctors=[]

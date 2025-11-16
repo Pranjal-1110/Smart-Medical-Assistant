@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from app.core.state import State
+from app.services.mongodb import get_patient_history
 from dotenv import load_dotenv  
 
 load_dotenv()
@@ -11,10 +12,11 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "Symptoms: {symptoms}\nHistory: {history}")
 ])
 
-async def predict_condition(state: State) -> State:
+async def secondary_diagnosis(state: State) -> State:
+    history = await get_patient_history(state.patient_id)
     chain = prompt | llm
     response = await chain.ainvoke({
-        "symptoms": state["parsed_symptoms"],
-        "history": state.get("history", {})
+        "symptoms": ", ".join(state.parsed_symptoms),
+        "history": history
     })
-    return {**state, "predicted_condition": str(response.content).strip()}
+    return state.model_copy(update={"predicted_condition": str(response.content).strip() , "history": history or {}})

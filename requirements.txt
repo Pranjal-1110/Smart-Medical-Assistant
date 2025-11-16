@@ -8,3 +8,8 @@ python-dotenv
 langchain_openai
 streamlit
 langchain_groq
+pydantic
+langchain_community
+langchain_tavily
+tavily-python
+redis
