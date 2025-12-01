@@ -1,5 +1,6 @@
 from langgraph.graph import StateGraph
 from app.core.state import State
+from app.nodes.parsed_symptoms import symptom_parser
 from app.nodes.primary_daignosis import primary_diagnosis
 from app.nodes.secondary_diagnosis import secondary_diagnosis
 from app.nodes.recommend_action import recommend_action
@@ -8,6 +9,7 @@ from app.nodes.search_doctors_nearby import search_doctors_nearby
 from app.nodes.update_history import update_history
 
 builder = StateGraph(State)
+builder.add_node("parsed_symptoms", symptom_parser)
 builder.add_node("primary_diagnosis", primary_diagnosis)
 builder.add_node("secondary_diagnosis", secondary_diagnosis)
 builder.add_node("recommend_action", recommend_action)
@@ -15,7 +17,8 @@ builder.add_node("suggest_doctor", suggest_doctor)
 builder.add_node("search_doctors_nearby", search_doctors_nearby)
 builder.add_node("update_history", update_history)
 
-builder.set_entry_point("primary_diagnosis")
+builder.set_entry_point("parsed_symptoms")
+builder.add_edge("parsed_symptoms", "primary_diagnosis")
 builder.add_edge("primary_diagnosis", "secondary_diagnosis")
 builder.add_edge("secondary_diagnosis", "recommend_action")
 builder.add_edge("recommend_action", "suggest_doctor")
