@@ -2,8 +2,17 @@ from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 from app.routes import auth, analyze
 import os
+from contextlib import asynccontextmanager
+from app.services.redis_client import connect_redis, close_redis 
 
-app = FastAPI(title="Smart Medical Assistant")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await connect_redis()
+    yield
+    await close_redis()
+
+# Pass the lifespan function to the FastAPI app
+app = FastAPI(title="Smart Medical Assistant", lifespan=lifespan)
 
 @app.get("/")
 def read_root():
